@@ -4,6 +4,12 @@ variable "create" {
   default     = true
 }
 
+variable "region" {
+  description = "Region where the resource(s) will be managed. Defaults to the Region set in the provider configuration"
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to API gateway resources"
   type        = map(string)
@@ -156,6 +162,12 @@ variable "hosted_zone_name" {
   default     = null
 }
 
+variable "private_zone" {
+  description = "Indicates the hosted zone being looked up is private.  Certificate validation will fail if this is set to true."
+  type        = bool
+  default     = false
+}
+
 variable "domain_name_certificate_arn" {
   description = "The ARN of an AWS-managed certificate that will be used by the endpoint for the domain name. AWS Certificate Manager is the only supported source"
   type        = string
@@ -201,7 +213,7 @@ variable "subdomain_record_types" {
 ################################################################################
 
 variable "create_certificate" {
-  description = "Whether to create a certificate for the domain"
+  description = "Whether to create a certificate for the domain.  Since certificate validate only works on public domains, this will be ignore if `private_zone` is set to `true`"
   type        = bool
   default     = true
 }
