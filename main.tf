@@ -98,7 +98,7 @@ resource "aws_apigatewayv2_domain_name" "this" {
   }
 
   dynamic "mutual_tls_authentication" {
-    for_each = length(var.mutual_tls_authentication) > 0 ? [var.mutual_tls_authentication] : []
+    for_each = var.mutual_tls_authentication == null ? [] : [var.mutual_tls_authentication]
 
     content {
       truststore_uri     = mutual_tls_authentication.value.truststore_uri
